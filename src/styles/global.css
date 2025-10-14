@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* Radix Colors */
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/gray-dark.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/blue-dark.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/red-dark.css';
+
+/* Radix Themes */
+@import '@radix-ui/themes/styles.css';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+ol, ul {
+    list-style: none;
+}
