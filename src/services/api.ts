@@ -1,8 +1,12 @@
 import axios from "axios";
 
+console.log('🔍 Verificando .env...');
+console.log('API Key encontrada?', !!import.meta.env.VITE_API_KEY);
+console.log('Primeiros 5 caracteres:', import.meta.env.VITE_API_KEY?.substring(0, 5));
+
 // Configuração base do Axios
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URl || 'https://api.themoviedb.org/3',
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'https://api.themoviedb.org/3',
     timeout: 10000,
     headers : {
         'Content-type': 'application/json',

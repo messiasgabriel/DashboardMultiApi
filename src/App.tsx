@@ -1,78 +1,40 @@
-import { useState } from 'react';
-import { Button, TextField, Card, Flex, Text, Spinner } from '@radix-ui/themes';
-import { usePopularMovies, useSearchMovies } from './hooks/useMovies';
+import { Tabs, Container, Flex, Text } from '@radix-ui/themes';
+import { PokemonPage } from './features/pokemon/pages/PokemonPage';
 
+// ✅ App principal com navegação por abas
+// Por quê tabs? Facilita alternar entre diferentes APIs sem recarregar a página
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [page, setPage] = useState(1);
-
-  // ✅ Busca filmes populares
-  const { data: popularMovies, isLoading: loadingPopular } = usePopularMovies(page);
-
-  // ✅ Busca filmes por query (só ativa se tiver texto)
-  const { data: searchResults, isLoading: loadingSearch } = useSearchMovies(searchQuery);
-
-  const movies = searchQuery.length > 2 ? searchResults : popularMovies;
-  const isLoading = loadingPopular || loadingSearch;
-
   return (
-    <div className="min-h-screen bg-gray-1 p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-gray-12">
-          🎬 Movie Database
-        </h1>
-
-        {/* Busca */}
+    <div className="min-h-screen bg-gray-1">
+      <Container size="4" p="4">
+        {/* Header da aplicação */}
         <Flex direction="column" gap="4" mb="6">
-          <TextField.Root
-            placeholder="Buscar filmes..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            size="3"
-          />
+          <Text size="9" weight="bold" className="text-center">
+            🚀 Dashboard Multi-API
+          </Text>
+          <Text size="3" color="gray" className="text-center">
+            Explore diferentes APIs em um único lugar
+          </Text>
         </Flex>
 
-        {/* Loading */}
-        {isLoading && (
-          <Flex justify="center" py="8">
-            <Spinner size="3" />
-          </Flex>
-        )}
+        {/* Tabs para alternar entre APIs */}
+        <Tabs.Root defaultValue="pokemon">
+          <Tabs.List size="2">
+            <Tabs.Trigger value="pokemon">⚡ Pokémon</Tabs.Trigger>
+            <Tabs.Trigger value="movies">🎬 Filmes</Tabs.Trigger>
+          </Tabs.List>
 
-        {/* Lista de filmes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {movies?.results.map((movie) => (
-            <Card key={movie.id}>
-              <Flex direction="column" gap="2">
-                {movie.poster_path && (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                    className="rounded-lg w-full"
-                  />
-                )}
-                <Text weight="bold" size="3">
-                  {movie.title}
-                </Text>
-                <Text size="2" color="gray">
-                  ⭐ {movie.vote_average.toFixed(1)}
-                </Text>
-              </Flex>
-            </Card>
-          ))}
-        </div>
+          {/* Conteúdo da aba Pokémon */}
+          <Tabs.Content value="pokemon">
+            <PokemonPage />
+          </Tabs.Content>
 
-        {/* Paginação */}
-        {!searchQuery && (
-          <Flex justify="center" gap="4" mt="8">
-            <Button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
-              Anterior
-            </Button>
-            <Text>Página {page}</Text>
-            <Button onClick={() => setPage((p) => p + 1)}>Próxima</Button>
-          </Flex>
-        )}
-      </div>
+          {/* Conteúdo da aba Filmes */}
+          <Tabs.Content value="movies">
+            {/* <MoviesPage /> */}
+          </Tabs.Content>
+        </Tabs.Root>
+      </Container>
     </div>
   );
 }
