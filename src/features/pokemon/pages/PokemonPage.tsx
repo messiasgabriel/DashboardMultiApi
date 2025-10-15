@@ -28,16 +28,18 @@ export function PokemonPage() {
     setIsModalOpen(true);
   };
 
-  const handleNextPage = () => setPage((p) => p + 1);
-  const handlePrevPage = () => setPage((p) => Math.max(0, p - 1));
+  const handleNextPage = () => setPage((next) => next + 1);
+  const handlePrevPage = () => setPage((prev) => Math.max(0, prev - 1));
 
   return (
-    <div className="py-8">
+    <div className="p-8">
       <div className="max-w-7xl mx-auto">
         <Flex direction="column" gap="4" mb="6">
-          <Text size="8" weight="bold" className="text-gray-12">
-            ⚡ Pokédex
-          </Text>
+            <Flex my="4">
+                <Text size="8" weight="bold" className="text-gray-12">
+                    Pokédex
+                </Text>
+            </Flex>
           
           <TextField.Root
             placeholder="Buscar Pokémon... (ex: pikachu)"
