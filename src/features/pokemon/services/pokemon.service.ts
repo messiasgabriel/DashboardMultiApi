@@ -9,7 +9,7 @@ const pokemonApi = axios.create({
     }
 });
 
-// Interceptor para logs
+// Interceptor
 pokemonApi.interceptors.request.use(
   (config) => {
     console.log('[POKEMON API] Requisição:', config.url);
