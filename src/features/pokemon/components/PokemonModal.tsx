@@ -16,6 +16,10 @@ export function PokemonModal({ pokemonName, isOpen, onClose }: PokemonModalProps
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Content maxWidth="600px">
+        <Dialog.Title>{pokemonName}</Dialog.Title>
+        <Dialog.Description>
+            Veja os detalhes deste Pokémon.
+        </Dialog.Description>
         {isLoading ? (
           <Text>Carregando...</Text>
         ) : pokemon ? (
