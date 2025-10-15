@@ -9,10 +9,9 @@ const pokemonApi = axios.create({
     }
 });
 
-// Interceptor
+// Request Interceptor
 pokemonApi.interceptors.request.use(
   (config) => {
-    console.log('[POKEMON API] Requisição:', config.url);
     return config;
   },
   (error) => {
@@ -21,9 +20,9 @@ pokemonApi.interceptors.request.use(
   }
 );
 
+// Response Interceptor
 pokemonApi.interceptors.response.use(
   (response) => {
-    console.log('✅ [POKEMON API] Resposta recebida:', response.status);
     return response;
   },
   (error) => {

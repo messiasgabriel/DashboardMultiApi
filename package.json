@@ -17,6 +17,7 @@
     "@tanstack/devtools-vite": "^0.3.6",
     "@tanstack/react-devtools": "^0.7.6",
     "@tanstack/react-query": "^5.90.3",
+    "@tanstack/react-router": "^1.132.47",
     "axios": "^1.12.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
