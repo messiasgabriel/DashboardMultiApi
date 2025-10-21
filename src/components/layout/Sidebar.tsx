@@ -1,6 +1,5 @@
 import { Flex, Text, Box } from '@radix-ui/themes';
 import { Link, useRouterState } from '@tanstack/react-router';
-import { Icon } from '../ui/Icon';
 import { Image } from '../ui/Image';
 
 // Configuração das abas/páginas
@@ -9,14 +8,14 @@ const NAVIGATION_ITEMS = [
     id: 'pokemon',
     label: 'Pokémon',
     path: '/pokemon',
-    icon: '🔵', // Você pode substituir por um componente de ícone
+    icon: '/assets/pokeball.svg',
     description: 'Explore a Pokédex'
   },
   {
     id: 'movies',
     label: 'Movies',
     path: '/movie',
-    icon: '🎬',
+    icon: '/assets/movie.svg',
     description: 'Descubra filmes'
   }
 ];
@@ -30,7 +29,11 @@ export function Sidebar() {
         {/* Header da Sidebar */}
         <Flex direction="column" gap="2" p="6" className="border-b border-gray-6">
             <Flex align="center" gap="3">
-                <span className="text-2xl">🔍</span>
+                <Image
+                  src="/assets/dashboard.svg"
+                  alt="Dashboard"
+                  className="w-8 h-8"
+                />
                 <div>
                     <Text size="5" weight="bold" className="text-gray-12">
                     Dashboard
@@ -92,10 +95,10 @@ export function Sidebar() {
                     `}
                     >
                     <Image 
-                        src='/assets/pokeball.svg' 
-                        alt='Pokeball'
+                        src={item.icon}
+                        alt={item.label}
                         aspectRatio='1/1'
-                        className='w-4'
+                        className='w-5 h-5'
                     />
                     <div>
                         <Text size="3" weight={isActive ? 'bold' : 'regular'}>

@@ -1,8 +1,8 @@
 import { createRootRoute, createRoute, createRouter, Outlet } from '@tanstack/react-router';
 import { Layout } from '../components/layout/Layout';
 import { HomePage } from '../pages/HomePage';
-import { PokemonPage } from '../features/pokemon/pages/PokemonPage';
-import { MoviesPage } from '../features/movies/pages/MoviesPage';
+import { PokemonPage } from '../packages/pokemon/src/pages/PokemonPage';
+import { MoviesPage } from '../packages/movies/src/pages/MoviesPage';
 
 const rootRoute = createRootRoute({
     component: () => (
