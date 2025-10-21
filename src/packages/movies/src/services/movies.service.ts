@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { MoviesResponse, Movie } from '../types/moives.types';
+import type { MoviesResponse, MovieDetails } from '../types/moives.types';
 
 // Configuração base do Axios
 export const api = axios.create({
@@ -14,15 +14,13 @@ export const api = axios.create({
 api.interceptors.request.use(
     (config) =>{
         console.log('[REQUEST] enviando para:', config.baseURL );
-        console.log('[REQUEST] Parâmetros:', config.params)
-        const apiKey = import.meta.env.VITE_API_KEY;
+        const apiKey = import.meta.env.VITE_TMDB_API_KEY;
         if(apiKey) {
             config.params = {
                 ...config.params,
                 api_key : apiKey,
             };
         }
-        console.log('✅ [REQUEST] Parâmetros finais:', config.params);
         return config;
     },
     (error) =>{
@@ -35,8 +33,6 @@ api.interceptors.request.use(
 // Response Interceptor
 api.interceptors.response.use(
     (response) => {
-    console.log('✅ [RESPONSE] Sucesso!', response.status);
-    console.log('📥 [RESPONSE] Dados:', response.data);
     return response;
   },
   (error) => {
@@ -55,23 +51,48 @@ api.interceptors.response.use(
 export const moviesService = {
     // Lista os filmes populares
     getPopular: async (page = 1): Promise<MoviesResponse> => {
-        const response = await api.get<MoviesResponse>('/movie/popular',{
-            params: { page},
-        });
-        return response.data;
-    },
-    // Buscar Filme por nome
-    search: async (query: string, page = 1): Promise<MoviesResponse> =>{
-        const response = await api.get<MoviesResponse>('/search/movie', {
-            params: { query, page},
+        const response = await api.get<MoviesResponse>('/movie/popular', {
+            params: { page },
         });
         return response.data;
     },
 
-    // Busca pelo ID
-    getById: async (id: number): Promise<Movie> => {
-        const response = await api.get<Movie>(`/movie/${id}`);
+    // Buscar filme por nome
+    search: async (query: string, page = 1): Promise<MoviesResponse> => {
+        const response = await api.get<MoviesResponse>('/search/movie', {
+            params: { query, page },
+        });
         return response.data;
     },
-}
+
+    // Busca detalhes completos pelo ID
+    getById: async (id: number): Promise<MovieDetails> => {
+        const response = await api.get<MovieDetails>(`/movie/${id}`);
+        return response.data;
+    },
+
+    // Filmes em cartaz
+    getNowPlaying: async (page = 1): Promise<MoviesResponse> => {
+        const response = await api.get<MoviesResponse>('/movie/now_playing', {
+            params: { page },
+        });
+        return response.data;
+    },
+
+    // Próximos lançamentos
+    getUpcoming: async (page = 1): Promise<MoviesResponse> => {
+        const response = await api.get<MoviesResponse>('/movie/upcoming', {
+            params: { page },
+        });
+        return response.data;
+    },
+
+    // Filmes mais bem avaliados
+    getTopRated: async (page = 1): Promise<MoviesResponse> => {
+        const response = await api.get<MoviesResponse>('/movie/top_rated', {
+            params: { page },
+        });
+        return response.data;
+    },
+};
 
